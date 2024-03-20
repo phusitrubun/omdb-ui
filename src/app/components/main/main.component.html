@@ -1,0 +1,237 @@
+<div class="container">
+  <div class="p1"></div>
+  <div class="p2"></div>
+  <div class="p3"></div>
+  <div class="p4"></div>
+  <div class="bgg">
+    <div class="nav">
+      <div class="nav">
+        <div class="in">
+          <div class="omdb">OMDB</div>
+          <div class="inputt">
+            <div class="input">
+              <input
+                type="search"
+                placeholder="search"
+                maxlength="40"
+                #name
+              />
+              <button class="button" (click)="searchmov(name)">Send</button>
+            </div>
+          </div>
+          <div class="inputt">
+            <div class="input">
+              <input
+                type="search"
+                placeholder="FullName"
+                maxlength="40"
+                #namefull
+              />
+              <button class="button" (click)="searchName(namefull)">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mov">
+      <div *ngIf="cheack == 0; else nodata">
+        <div class="mov" *ngIf="movna" else #noo>
+          <div *ngFor="let mv of movna.Search">
+            <div (click)="tomovie(mv.imdbID)">
+              <img
+                style="object-fit: cover"
+                class="img"
+                src="{{ mv.Poster }}"
+                alt=""
+              />
+            </div>
+          </div>
+          <div style="display: flex; justify-content: center">
+            <div
+              style="margin-left: 10px; margin-right: 10px; margin-top: 35px"
+            >
+              <a class="butnum" (click)="nextpage('back')"><</a>
+              <a class="butnum"> {{ count }}</a>
+              <a class="butnum" (click)="nextpage('next')">></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #nodata>
+        <!-- โชว์ รายละเอียดหนัง ที่เราคลิก -->
+        <div *ngIf="cheack == 1; else comID">
+          <h3
+            class="color"
+            (click)="goBack()"
+            style="
+              color: white;
+              border: solid white 1.5px;
+              border-radius: 10px;
+              font-size: 25px;
+              width: 150px;
+              padding: 5px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              cursor: pointer;
+            "
+          >
+            Back
+          </h3>
+          <div class="display_flex" style="display: flex; color: white">
+            <img
+              style="max-width: 20vw; height: 50vh; margin-right: 5%"
+              [src]="detail?.Poster"
+            />
+            <div style="width: 40vw">
+              <h3>{{ detail?.Title }}</h3>
+              <hr />
+              <div style="display: flex">
+                <p class="blue">Genre :</p>
+                <p>{{ detail?.Genre }}</p>
+              </div>
+              <hr />
+              <div style="display: flex">
+                <p class="blue">Actor :</p>
+                <p>{{ detail?.Actors }}</p>
+              </div>
+              <hr />
+              <div style="display: flex">
+                <p class="blue">Director :</p>
+                <p>{{ detail?.Director }}</p>
+              </div>
+              <hr />
+              <div style="display: flex">
+                <p class="blue" style="white-space: nowrap">Writer :</p>
+                <p>{{ detail?.Writer }}</p>
+              </div>
+              <hr />
+              <p>{{ detail?.Plot }}</p>
+              <hr />
+              <div style="display: flex">
+                <p class="blue">Production:</p>
+                <p>{{ detail?.Production }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #comID>
+          <div *ngIf="cheack == 3; else namefull">
+            <h3
+              class="color"
+              (click)="goBack()"
+              style="
+                color: white;
+                border: solid white 1.5px;
+                border-radius: 10px;
+                font-size: 25px;
+                width: 100px;
+                padding: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+              "
+            >
+              Back
+            </h3>
+            <div class="display_flex" style="display: flex; color: white">
+              <img
+                style="max-width: 20vw; height: 50vh; margin-right: 5%"
+                [src]="detail?.Poster"
+              />
+              <div style="width: 40vw">
+                <h3>{{ detail?.Title }}</h3>
+                <hr />
+                <div style="display: flex">
+                  <p class="blue">Genre :</p>
+                  <p>{{ detail?.Genre }}</p>
+                </div>
+                <hr />
+                <div style="display: flex">
+                  <p class="blue">Actor :</p>
+                  <p>{{ detail?.Actors }}</p>
+                </div>
+                <hr />
+                <div style="display: flex">
+                  <p class="blue">Director :</p>
+                  <p>{{ detail?.Director }}</p>
+                </div>
+                <hr />
+                <div style="display: flex">
+                  <p class="blue" style="white-space: nowrap">Writer :</p>
+                  <p>{{ detail?.Writer }}</p>
+                </div>
+                <hr />
+                <p>{{ detail?.Plot }}</p>
+                <hr />
+                <div style="display: flex">
+                  <p class="blue">Production:</p>
+                  <p>{{ detail?.Production }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-template #namefull>
+            <div *ngIf="cheack == 2;">
+              <h3
+                class="color"
+                (click)="goBack()"
+                style="
+                  color: white;
+                  border: solid white 1.5px;
+                  border-radius: 10px;
+                  font-size: 25px;
+                  width: 100px;
+                  padding: 5px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  cursor: pointer;
+                "
+              >
+                Back
+              </h3>
+              <div class="display_flex" style="display: flex; color: white">
+                <img
+                  style="max-width: 20vw; height: 50vh; margin-right: 5%"
+                  [src]="tsearch?.Poster"
+                />
+                <div style="width: 40vw">
+                  <h3>{{ tsearch?.Title }}</h3>
+                  <hr />
+                  <div style="display: flex">
+                    <p class="blue">Genre :</p>
+                    <p>{{ tsearch?.Genre }}</p>
+                  </div>
+                  <hr />
+                  <div style="display: flex">
+                    <p class="blue">Actor :</p>
+                    <p>{{ tsearch?.Actors }}</p>
+                  </div>
+                  <hr />
+                  <div style="display: flex">
+                    <p class="blue">Director :</p>
+                    <p>{{ tsearch?.Director }}</p>
+                  </div>
+                  <hr />
+                  <div style="display: flex">
+                    <p class="blue" style="white-space: nowrap">Writer :</p>
+                    <p>{{ tsearch?.Writer }}</p>
+                  </div>
+                  <hr />
+                  <p>{{ tsearch?.Plot }}</p>
+                  <hr />
+                  <div style="display: flex">
+                    <p class="blue">Production:</p>
+                    <p>{{ tsearch?.Production }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</div>
